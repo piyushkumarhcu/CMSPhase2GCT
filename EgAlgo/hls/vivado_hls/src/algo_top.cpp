@@ -2,6 +2,7 @@
 #include "algo_top.h"
 #include <algorithm>
 #include <utility>
+#include "bitonicSort.h"
 
 #include "../../../../include/objects.h"
 using namespace std;
@@ -89,31 +90,67 @@ void algo_top(hls::stream<axiword576> link_in[N_INPUT_LINKS], hls::stream<axiwor
 
   // Step 1: Unpack links
   // Input is 64 links carrying 32phix34eta towers
-  TowersInEta towersInPosEta[TOWERS_IN_PHI];
-  TowersInEta towersInNegEta[TOWERS_IN_PHI];
-#pragma HLS ARRAY_PARTITION variable=towersInPosEta complete dim=0
-#pragma HLS ARRAY_PARTITION variable=towersInNegEta complete dim=0
-     
+  TowersInEta towersInPhi_NegEta[TOWERS_IN_PHI];
+  //TowersInEta towersInPhi_PosEta[TOWERS_IN_PHI];
+#pragma HLS ARRAY_PARTITION variable=towersInPhi_NegEta complete dim=0
+//#pragma HLS ARRAY_PARTITION variable=towersInPhi_PosEta complete dim=0
+
   for (size_t ilink = 0; ilink < N_INPUT_LINKS/2; ilink++) {
 #pragma LOOP UNROLL
-#pragma HLS latency min=1
-    size_t iPosEta = ilink;
-    size_t iNegEta = ilink + (N_INPUT_LINKS/2);
-    towersInPosEta[ilink] = unpackInputLink(link_in[iPosEta]);
-    towersInNegEta[ilink] = unpackInputLink(link_in[iNegEta]);
+    #pragma HLS latency min=1
+    towersInPhi_NegEta[ilink] = unpackInputLink(link_in[ilink]);
+    //towersInPhi_PosEta[ilink+N_INPUT_LINKS/2] = unpackInputLink(link_in[ilink+N_INPUT_LINKS/2]);
   }
 
+  // Step 2: Do Sorting here
+  din_t towersX[M], towersY[M];
 
-  // Step 2: Sorting Algo goes here
+  for(dloop_t i=0; i<M/2; i++){
+    #pragma HLS UNROLL
+    towersX[i] = towersInPhi_NegEta[0].towers[i].data;
+  }
 
+  for(dloop_t i=0; i<M/2; i++){
+    #pragma HLS UNROLL
+    towersX[i+M/2] = towersInPhi_NegEta[1].towers[i].data;
+  }
+
+//........checking the input of sroting...........//
+  for(dloop_t i=0; i<M; i++){
+	  cout << towersX[i] << " ";
+  }
+
+  cout << endl;
+
+  bitonicSort32(towersX, towersY);
+
+//........checking the output of sroting...........//
+
+  for(dloop_t i=0; i<M; i++){
+  	  cout << towersY[i] << " ";
+  }
+
+    cout << endl;
 
   // Step 3: Pack the outputs
-  for (size_t olink = 0; olink < N_OUTPUT_LINKS/2; olink++) {
+
+  TowersInEta towersZ[2];
+  for(dloop_t i=0; i<M/2; i++){
+    #pragma HLS UNROLL
+    towersZ[0].towers[i].data = towersY[i];
+  }
+  towersZ[0].towers[16].data = towersInPhi_NegEta[0].towers[16].data;
+
+  for(dloop_t i=0; i<M/2; i++){
+    #pragma HLS UNROLL
+    towersZ[1].towers[i].data = towersY[i+M/2];
+  }
+  towersZ[1].towers[16].data = towersInPhi_NegEta[1].towers[16].data;
+
+
+  for (size_t i = 0; i < N_OUTPUT_LINKS; i++) {
 #pragma LOOP UNROLL
 #pragma HLS latency min=1
-    size_t iPosEta = olink;              
-    size_t iNegEta = olink + (N_OUTPUT_LINKS/2);
-    packOutput(towersInPosEta[olink], link_out[iPosEta]);
-    packOutput(towersInNegEta[olink], link_out[iNegEta]);
+    packOutput(towersZ[i], link_out[i]);
   }
 }
