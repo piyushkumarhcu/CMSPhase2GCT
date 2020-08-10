@@ -115,7 +115,7 @@ void algo_top(hls::stream<axiword576> link_in[N_INPUT_LINKS], hls::stream<axiwor
     towersX[i+M/2] = towersInPhi_NegEta[1].towers[i].data;
   }
 
-//........checking the input of sroting...........//
+//........checking the input of sorting...........//
   for(dloop_t i=0; i<M; i++){
 	  cout << towersX[i] << " ";
   }
@@ -124,7 +124,7 @@ void algo_top(hls::stream<axiword576> link_in[N_INPUT_LINKS], hls::stream<axiwor
 
   bitonicSort32(towersX, towersY);
 
-//........checking the output of sroting...........//
+//........checking the output of sorting...........//
 
   for(dloop_t i=0; i<M; i++){
   	  cout << towersY[i] << " ";
