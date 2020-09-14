@@ -7,8 +7,8 @@ GreaterSmaller AscendDescend(Tower &x, Tower &y){
 #pragma HLS INLINE
     GreaterSmaller s;
 
-    s.greater = (x.tower_et() > y.tower_et()) ? x.tower_et() : y.tower_et();
-    s.smaller = (x.tower_et() > y.tower_et()) ? y.tower_et() : x.tower_et();
+    s.greater = (x.tower_et() > y.tower_et()) ? x : y;
+    s.smaller = (x.tower_et() > y.tower_et()) ? y : x;
 
     return s;
 }
@@ -19,10 +19,10 @@ void FourinSmallFir(Tower &x0, Tower &x1, Tower &x2, Tower &x3,
    #pragma HLS INLINE
     GreaterSmaller res1;
         res1 = AscendDescend(x0, x2);
-        y0.data.range(19, 10) = res1.smaller; y2.data.range(19, 10) = res1.greater;
+        y0 = res1.smaller; y2 = res1.greater;
 
         res1 = AscendDescend(x1, x3);
-        y1.data.range(19, 10) = res1.smaller; y3.data.range(19, 10) = res1.greater;
+        y1 = res1.smaller; y3 = res1.greater;
 }
 
 void FourinGreatFir(Tower &x0, Tower &x1, Tower &x2, Tower &x3,
@@ -31,10 +31,10 @@ void FourinGreatFir(Tower &x0, Tower &x1, Tower &x2, Tower &x3,
    #pragma HLS INLINE
     GreaterSmaller res2;
         res2 = AscendDescend(x0, x2);
-        y0.data.range(19, 10) = res2.greater; y2.data.range(19, 10) = res2.smaller;
+        y0 = res2.greater; y2 = res2.smaller;
 
         res2 = AscendDescend(x1, x3);
-        y1.data.range(19, 10) = res2.greater; y3.data.range(19, 10) = res2.smaller;
+        y1 = res2.greater; y3 = res2.smaller;
 }
 
 void EightinSmallFir(Tower &x0, Tower &x1, Tower &x2, Tower &x3, Tower &x4, Tower &x5,
@@ -43,16 +43,16 @@ void EightinSmallFir(Tower &x0, Tower &x1, Tower &x2, Tower &x3, Tower &x4, Towe
         #pragma HLS INLINE
         GreaterSmaller res3;
         res3 = AscendDescend(x0, x4);
-        y0.data.range(19, 10) = res3.smaller; y4.data.range(19, 10) = res3.greater;
+        y0 = res3.smaller; y4 = res3.greater;
 
         res3 = AscendDescend(x1, x5);
-        y1.data.range(19, 10) = res3.smaller; y5.data.range(19, 10) = res3.greater;
+        y1 = res3.smaller; y5 = res3.greater;
 
         res3 = AscendDescend(x2, x6);
-        y2.data.range(19, 10) = res3.smaller; y6.data.range(19, 10) = res3.greater;
+        y2 = res3.smaller; y6 = res3.greater;
 
         res3 = AscendDescend(x3, x7);
-        y3.data.range(19, 10) = res3.smaller; y7.data.range(19, 10) = res3.greater;
+        y3 = res3.smaller; y7 = res3.greater;
 
 }
 
@@ -62,16 +62,16 @@ void EightinGreatFir(Tower &x8, Tower &x9, Tower &x10, Tower &x11, Tower &x12, T
        	#pragma HLS INLINE
         GreaterSmaller res4;
         res4 = AscendDescend(x8, x12);
-        y8.data.range(19, 10) = res4.greater; y12.data.range(19, 10) = res4.smaller;
+        y8 = res4.greater; y12 = res4.smaller;
 
         res4 = AscendDescend(x9, x13);
-        y9.data.range(19, 10) = res4.greater; y13.data.range(19, 10) = res4.smaller;
+        y9 = res4.greater; y13 = res4.smaller;
 
         res4 = AscendDescend(x10, x14);
-        y10.data.range(19, 10) = res4.greater; y14.data.range(19, 10) = res4.smaller;
+        y10 = res4.greater; y14 = res4.smaller;
 
         res4 = AscendDescend(x11, x15);
-        y11.data.range(19, 10) = res4.greater; y15.data.range(19, 10) = res4.smaller;
+        y11 = res4.greater; y15 = res4.smaller;
 
 }
 
@@ -85,28 +85,28 @@ void SixteenSmallFir(Tower &x0, Tower &x1, Tower &x2, Tower &x3, Tower &x4, Towe
         GreaterSmaller res5;
 
         res5 = AscendDescend(x0, x8);
-        y0.data.range(19, 10) = res5.smaller; y8.data.range(19, 10) = res5.greater;
+        y0 = res5.smaller; y8 = res5.greater;
 
         res5 = AscendDescend(x1, x9);
-        y1.data.range(19, 10) = res5.smaller; y9.data.range(19, 10) = res5.greater;
+        y1 = res5.smaller; y9 = res5.greater;
 
         res5 = AscendDescend(x2, x10);
-        y2.data.range(19, 10) = res5.smaller; y10.data.range(19, 10) = res5.greater;
+        y2 = res5.smaller; y10 = res5.greater;
 
         res5 = AscendDescend(x3, x11);
-        y3.data.range(19, 10) = res5.smaller; y11.data.range(19, 10) = res5.greater;
+        y3 = res5.smaller; y11 = res5.greater;
 
         res5 = AscendDescend(x4, x12);
-        y4.data.range(19, 10) = res5.smaller; y12.data.range(19, 10) = res5.greater;
+        y4 = res5.smaller; y12 = res5.greater;
 
         res5 = AscendDescend(x5, x13);
-        y5.data.range(19, 10) = res5.smaller; y13.data.range(19, 10) = res5.greater;
+        y5 = res5.smaller; y13 = res5.greater;
 
         res5 = AscendDescend(x6, x14);
-        y6.data.range(19, 10) = res5.smaller; y14.data.range(19, 10) = res5.greater;
+        y6 = res5.smaller; y14 = res5.greater;
 
         res5 = AscendDescend(x7, x15);
-        y7.data.range(19, 10) = res5.smaller; y15.data.range(19, 10) = res5.greater;
+        y7 = res5.smaller; y15 = res5.greater;
 }
 
 void SixteenGreatFir(Tower &x16, Tower &x17, Tower &x18, Tower &x19, Tower &x20, Tower &x21,
@@ -119,31 +119,31 @@ void SixteenGreatFir(Tower &x16, Tower &x17, Tower &x18, Tower &x19, Tower &x20,
         GreaterSmaller res6;
 
         res6 = AscendDescend(x16, x24);
-        y16.data.range(19, 10) = res6.greater; y24.data.range(19, 10) = res6.smaller;
+        y16 = res6.greater; y24 = res6.smaller;
 
         res6 = AscendDescend(x17, x25);
-        y17.data.range(19, 10) = res6.greater; y25.data.range(19, 10) = res6.smaller;
+        y17 = res6.greater; y25 = res6.smaller;
 
         res6 = AscendDescend(x18, x26);
-        y18.data.range(19, 10) = res6.greater; y26.data.range(19, 10) = res6.smaller;
+        y18 = res6.greater; y26 = res6.smaller;
 
         res6 = AscendDescend(x19, x27);
-        y19.data.range(19, 10) = res6.greater; y27.data.range(19, 10) = res6.smaller;
+        y19 = res6.greater; y27 = res6.smaller;
 
         res6 = AscendDescend(x20, x28);
-        y20.data.range(19, 10) = res6.greater; y28.data.range(19, 10) = res6.smaller;
+        y20 = res6.greater; y28 = res6.smaller;
 
         res6 = AscendDescend(x21, x29);
-        y21.data.range(19, 10) = res6.greater; y29.data.range(19, 10) = res6.smaller;
+        y21 = res6.greater; y29 = res6.smaller;
 
         res6 = AscendDescend(x22, x30);
-        y22.data.range(19, 10) = res6.greater; y30.data.range(19, 10) = res6.smaller;
+        y22 = res6.greater; y30 = res6.smaller;
 
         res6 = AscendDescend(x23, x31);
-        y23.data.range(19, 10) = res6.greater; y31.data.range(19, 10) = res6.smaller;
+        y23 = res6.greater; y31 = res6.smaller;
 }
 
-void bitonicSort(Tower in[M], Tower out[M]){
+void bitonicSort32(Tower in[M], Tower out[M]){
 #pragma HLS PIPELINE II=9
 
 #pragma HLS ARRAY_PARTITION variable=in
@@ -172,13 +172,13 @@ Tower a[M], b[M], c[M], d[M], e[M], f[M], g[M], h[M], l[M], m[M], n[M], o[M], p[
 for(dloop_t i=0; i<M/4; i++){
     #pragma HLS unroll
     result = AscendDescend(in[4*i], in[4*i+1]);
-    a[4*i].data.range(19, 10) = result.smaller; a[4*i+1].data.range(19, 10) = result.greater;
+    a[4*i] = result.smaller; a[4*i+1] = result.greater;
 }
 
 for(dloop_t i=0; i<M/4; i++){
     #pragma HLS unroll
     result = AscendDescend(in[4*i+2], in[4*i+3]);
-    a[4*i+2].data.range(19, 10) = result.greater; a[4*i+3].data.range(19, 10) = result.smaller;
+    a[4*i+2] = result.greater; a[4*i+3] = result.smaller;
 }
 
 //.........................Starting second stage..........................//
@@ -194,19 +194,19 @@ for(dloop_t i=0; i<M/8; i++){
 for(dloop_t i=0; i<M/8; i++){
     #pragma HLS unroll
     result = AscendDescend(b[8*i], b[8*i+1]);
-    c[8*i].data.range(19, 10) = result.smaller; c[8*i+1].data.range(19, 10) = result.greater;
+    c[8*i] = result.smaller; c[8*i+1] = result.greater;
  
     result = AscendDescend(b[8*i+2], b[8*i+3]);
-    c[8*i+2].data.range(19, 10) = result.smaller; c[8*i+3].data.range(19, 10) = result.greater;
+    c[8*i+2] = result.smaller; c[8*i+3] = result.greater;
 }
 
 for(dloop_t i=0; i<M/8; i++){
     #pragma HLS unroll
     result = AscendDescend(b[8*i+4], b[8*i+5]);
-    c[8*i+4].data.range(19, 10) = result.greater; c[8*i+5].data.range(19, 10) = result.smaller;
+    c[8*i+4] = result.greater; c[8*i+5] = result.smaller;
 
     result = AscendDescend(b[8*i+6], b[8*i+7]);
-    c[8*i+6].data.range(19, 10) = result.greater; c[8*i+7].data.range(19, 10) = result.smaller;
+    c[8*i+6] = result.greater; c[8*i+7] = result.smaller;
 }
 
 //.....................Starting fourth stage..............................//
@@ -233,25 +233,25 @@ for(dloop_t i=0; i<M/16; i++){
 for(dloop_t i=0; i<M/8; i++){
     #pragma HLS unroll
     result = AscendDescend(e[2*i], e[2*i+1]);
-    f[2*i].data.range(19, 10) = result.smaller; f[2*i+1].data.range(19, 10) = result.greater;
+    f[2*i] = result.smaller; f[2*i+1] = result.greater;
 }
 
 for(dloop_t i=0; i<M/8; i++){
     #pragma HLS unroll
     result = AscendDescend(e[2*i+8], e[2*i+9]);
-    f[2*i+8].data.range(19, 10) = result.greater; f[2*i+9].data.range(19, 10) = result.smaller;
+    f[2*i+8] = result.greater; f[2*i+9] = result.smaller;
 }
 
 for(dloop_t i=0; i<M/8; i++){
     #pragma HLS unroll
     result = AscendDescend(e[2*i+16], e[2*i+17]);
-    f[2*i+16].data.range(19, 10) = result.smaller; f[2*i+17].data.range(19, 10) = result.greater;
+    f[2*i+16] = result.smaller; f[2*i+17] = result.greater;
 }
 
 for(dloop_t i=0; i<M/8; i++){
     #pragma HLS unroll
     result = AscendDescend(e[2*i+24], e[2*i+25]);
-    f[2*i+24].data.range(19, 10) = result.greater; f[2*i+25].data.range(19, 10) = result.smaller;
+    f[2*i+24] = result.greater; f[2*i+25] = result.smaller;
 }
 
 //.....................Starting seventh stage.............................//
@@ -298,13 +298,13 @@ for(dloop_t i=0; i<M/4; i++)
 {
     #pragma HLS unroll
     result = AscendDescend(l[2*i], l[2*i+1]);
-    m[2*i].data.range(19, 10) = result.smaller; m[2*i+1].data.range(19, 10) = result.greater;
+    m[2*i] = result.smaller; m[2*i+1] = result.greater;
 }
 
 for(dloop_t i=0; i<M/4; i++){
     #pragma HLS unroll
     result = AscendDescend(l[2*i+16], l[2*i+17]);
-    m[2*i+16].data.range(19, 10) = result.greater; m[2*i+17].data.range(19, 10) = result.smaller;
+    m[2*i+16] = result.greater; m[2*i+17] = result.smaller;
 }
 
 //.....................Starting eleventh stage.............................//
@@ -312,7 +312,7 @@ for(dloop_t i=0; i<M/4; i++){
 for(dloop_t i=0; i<M/2; i++){
     #pragma HLS unroll
     result = AscendDescend(m[i], m[i+16]);
-    n[i].data.range(19, 10) = result.smaller; n[i+16].data.range(19, 10) = result.greater;
+    n[i] = result.smaller; n[i+16] = result.greater;
 }
 
 //.....................Starting twelfth stage............................//
@@ -345,7 +345,8 @@ for(dloop_t i=0; i<M/4; i++){
 for(dloop_t i=0; i<M/2; i++){
     #pragma HLS unroll
     result = AscendDescend(q[2*i], q[2*i+1]);
-    out[2*i].data.range(19, 10) = result.smaller; out[2*i+1].data.range(19, 10) = result.greater;
+    out[2*i] = result.smaller; out[2*i+1] = result.greater;
 }
 
 }
+
