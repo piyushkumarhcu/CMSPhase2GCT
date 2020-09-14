@@ -9,12 +9,11 @@
 
 using namespace std;
 
-typedef ap_uint<10> din_t;
 typedef ap_uint<6> dloop_t;
 
 class GreaterSmaller{
 public:
-    din_t greater, smaller;
+    Tower greater, smaller;
 };
 
 void bitonicSort(Tower in[M], Tower out[M]);
