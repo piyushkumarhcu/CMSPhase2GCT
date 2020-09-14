@@ -1,4 +1,4 @@
-#include "bitonicSort.h"
+#include "bitonicSort32.h"
 #include "../../../../include/objects.h"
 
 //Main CAE block (compare and exchange)
