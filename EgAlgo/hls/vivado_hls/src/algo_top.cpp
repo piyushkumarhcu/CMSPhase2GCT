@@ -2,7 +2,7 @@
 #include "algo_top.h"
 #include <algorithm>
 #include <utility>
-#include "bitonicSort.h"
+#include "bitonicSort32.h"
 
 #include "../../../../include/objects.h"
 using namespace std;
@@ -103,31 +103,28 @@ void algo_top(hls::stream<axiword576> link_in[N_INPUT_LINKS], hls::stream<axiwor
   }
 
   // Step 2: Do Sorting here
-  din_t towersX[M], towersY[M];
+  Tower towersX[M], towersY[M];
 
   for(dloop_t i=0; i<M/2; i++){
     #pragma HLS UNROLL
-    towersX[i] = towersInPhi_NegEta[0].towers[i].data;
+    towersX[i] = towersInPhi_NegEta[0].towers[i];
   }
 
   for(dloop_t i=0; i<M/2; i++){
     #pragma HLS UNROLL
-    towersX[i+M/2] = towersInPhi_NegEta[1].towers[i].data;
+    towersX[i+M/2] = towersInPhi_NegEta[1].towers[i];
   }
 
-//........checking the input of sorting...........//
   for(dloop_t i=0; i<M; i++){
-	  cout << towersX[i] << " ";
+	  cout << towersX[i].tower_et() << " ";
   }
 
   cout << endl;
 
-  bitonicSort32(towersX, towersY);
-
-//........checking the output of sorting...........//
+  bitonicSort(towersX, towersY);
 
   for(dloop_t i=0; i<M; i++){
-  	  cout << towersY[i] << " ";
+  	  cout << towersY[i].tower_et() << " ";
   }
 
     cout << endl;
@@ -137,15 +134,15 @@ void algo_top(hls::stream<axiword576> link_in[N_INPUT_LINKS], hls::stream<axiwor
   TowersInEta towersZ[2];
   for(dloop_t i=0; i<M/2; i++){
     #pragma HLS UNROLL
-    towersZ[0].towers[i].data = towersY[i];
+    towersZ[0].towers[i] = towersY[i];
   }
-  towersZ[0].towers[16].data = towersInPhi_NegEta[0].towers[16].data;
+  towersZ[0].towers[16] = towersInPhi_NegEta[0].towers[16];
 
   for(dloop_t i=0; i<M/2; i++){
     #pragma HLS UNROLL
-    towersZ[1].towers[i].data = towersY[i+M/2];
+    towersZ[1].towers[i] = towersY[i+M/2];
   }
-  towersZ[1].towers[16].data = towersInPhi_NegEta[1].towers[16].data;
+  towersZ[1].towers[16] = towersInPhi_NegEta[1].towers[16];
 
 
   for (size_t i = 0; i < N_OUTPUT_LINKS; i++) {
